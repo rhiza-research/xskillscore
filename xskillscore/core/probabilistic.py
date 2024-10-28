@@ -213,6 +213,7 @@ def crps_ensemble(
     member_dim: str = "member",
     dim: Optional[Dim] = None,
     weights: Optional[XArray] = None,
+    mean: bool = True,
     keep_attrs: bool = False,
 ) -> XArray:
     """Continuous Ranked Probability Score with the ensemble distribution.
@@ -282,10 +283,13 @@ def crps_ensemble(
         output_dtypes=[float],
         keep_attrs=keep_attrs,
     )
-    if weights is not None:
-        return res.weighted(weights).mean(dim, keep_attrs=keep_attrs)
+    if mean:
+        if weights is not None:
+            return res.weighted(weights).mean(dim, keep_attrs=keep_attrs)
+        else:
+            return res.mean(dim, keep_attrs=keep_attrs)
     else:
-        return res.mean(dim, keep_attrs=keep_attrs)
+        return res
 
 
 def brier_score(
