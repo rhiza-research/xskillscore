@@ -166,6 +166,7 @@ class Contingency:
             bin_names=[OBSERVATIONS_NAME, FORECASTS_NAME],
             dim=dim,
             bin_dim_suffix="_bin",
+            block_size=None
         )
 
         # Add some coordinates to simplify interpretation/post-processing
